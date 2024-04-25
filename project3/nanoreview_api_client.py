@@ -28,7 +28,7 @@ class NanoReviewApiClient:
         res = await self.session.post('/api/search/url', data=form_data, verify_ssl=self.verify_ssl)
         return (await res.json())['url']
 
-    async def get_info(self, laptop: str) -> Data:
+    async def get_info(self, laptop: str):
         """
         Gets nanoreview characteristics information.
         All values are out of 100.
