@@ -28,7 +28,11 @@ class NanoReviewApiClient:
         res = await self.session.post('/api/search/url', data=form_data, verify_ssl=self.verify_ssl)
         return (await res.json())['url']
 
-    async def get_info(self, laptop: str):
+    async def get_info(self, laptop: str) -> Data:
+        """
+        Gets nanoreview characteristics information.
+        All values are out of 100.
+        """
         url = await self.get_redirect_url(laptop)
 
         res = await self.session.get(url, verify_ssl=self.verify_ssl)
@@ -65,13 +69,13 @@ class NanoReviewApiClient:
             "'score-bar-result-square-dark')]/text()").get()
 
         return {
-            'performance': performance,
-            'gaming': gaming,
-            'display': display,
-            'battery_life': battery_life,
-            'connectivity': connectivity,
-            'portability': portability,
-            'nano_score': nano_score
+            'performance': int(performance),
+            'gaming': int(gaming),
+            'display': int(display),
+            'battery_life': int(battery_life),
+            'connectivity': int(connectivity),
+            'portability': int(portability),
+            'nano_score': int(nano_score)
         }
 
     async def search(self, term: str):
