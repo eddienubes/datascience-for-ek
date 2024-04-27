@@ -8,6 +8,9 @@ class CriteriaType(Enum):
 
 
 class Feature(Enum):
+    """
+    Preserve the order of keys here.
+    """
     NAME = "NAME"
     PERFORMANCE = "PERFORMANCE"
     GAMING = "GAMING"
@@ -23,16 +26,18 @@ class Feature(Enum):
     MAX_BRIGHTNESS = "MAX_BRIGHTNESS"
 
 
-class FeatureToCriteriaType(Enum):
-    PERFORMANCE = CriteriaType.MAX
-    GAMING = CriteriaType.MAX
-    DISPLAY = CriteriaType.MAX
-    BATTERY_LIFE = CriteriaType.MAX
-    CONNECTIVITY = CriteriaType.MAX
-    PORTABILITY = CriteriaType.MAX
-    NANO_SCORE = CriteriaType.MAX
-    WEIGHT = CriteriaType.MIN
-    SCREEN_TO_BODY_RATIO = CriteriaType.MAX
-    REFRESH_RATE = CriteriaType.MAX
-    PPI = CriteriaType.MAX
-    MAX_BRIGHTNESS = CriteriaType.MAX
+FEATURE_TO_CRITERIA_TYPE = {
+    Feature.NAME: CriteriaType.NONE,
+    Feature.PERFORMANCE: CriteriaType.MAX,
+    Feature.GAMING: CriteriaType.MAX,
+    Feature.DISPLAY: CriteriaType.MAX,
+    Feature.BATTERY_LIFE: CriteriaType.MAX,
+    Feature.CONNECTIVITY: CriteriaType.MAX,
+    Feature.PORTABILITY: CriteriaType.MAX,
+    Feature.NANO_SCORE: CriteriaType.MAX,
+    Feature.WEIGHT: CriteriaType.MIN,
+    Feature.SCREEN_TO_BODY_RATIO: CriteriaType.MAX,
+    Feature.REFRESH_RATE: CriteriaType.MAX,
+    Feature.PPI: CriteriaType.MAX,
+    Feature.MAX_BRIGHTNESS: CriteriaType.MAX
+}

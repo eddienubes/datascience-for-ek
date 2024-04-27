@@ -1,6 +1,7 @@
 import asyncio
 
 from nanoreview_api_client import NanoReviewApiClient
+from project3.evaluator import Evaluator
 
 
 async def main() -> None:
@@ -9,7 +10,9 @@ async def main() -> None:
 
     info = await api.get_info(searchHit[0]['name'])
 
-    print(info)
+    evaluator = Evaluator()
+
+    evaluator.add(info)
 
 
 asyncio.run(main())
