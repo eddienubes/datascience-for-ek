@@ -21,6 +21,7 @@ pipx install poetry # Install poetry.
 ```shell
 cd <folder name> # Checkout the lab folder
 poetry install # Install dependencies
+make start
 ```
 
 ### Project: Creation
