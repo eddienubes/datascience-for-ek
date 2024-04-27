@@ -3,6 +3,8 @@ import asyncio
 from scrapy.selector import Selector
 from quantulum3 import parser
 
+from project3.constants import Feature
+
 
 class NanoReviewApiClient:
     def __init__(self):
@@ -97,18 +99,18 @@ class NanoReviewApiClient:
         max_brightness_raw = parser.parse(max_brightness_raw).pop(0).value
 
         return {
-            'performance': int(performance),
-            'gaming': int(gaming),
-            'display': int(display),
-            'battery_life': int(battery_life),
-            'connectivity': int(connectivity),
-            'portability': int(portability),
-            'nano_score': int(nano_score),
-            'weight': float(weight),
-            'screen_to_body_ratio': float(screen_to_body_ratio),
-            'refresh_rate': int(refresh_rate),
-            'ppi': int(ppi),
-            'max_brightness': int(max_brightness_raw)
+            Feature.PERFORMANCE: int(performance),
+            Feature.GAMING: int(gaming),
+            Feature.DISPLAY: int(display),
+            Feature.BATTERY_LIFE: int(battery_life),
+            Feature.CONNECTIVITY: int(connectivity),
+            Feature.PORTABILITY: int(portability),
+            Feature.NANO_SCORE: int(nano_score),
+            Feature.WEIGHT: float(weight),
+            Feature.SCREEN_TO_BODY_RATIO: float(screen_to_body_ratio),
+            Feature.REFRESH_RATE: int(refresh_rate),
+            Feature.PPI: int(ppi),
+            Feature.MAX_BRIGHTNESS: int(max_brightness_raw)
         }
 
     async def search(self, term: str):
