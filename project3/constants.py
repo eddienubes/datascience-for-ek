@@ -41,3 +41,5 @@ FEATURE_TO_CRITERIA_TYPE = {
     Feature.PPI: CriteriaType.MAX,
     Feature.MAX_BRIGHTNESS: CriteriaType.MAX
 }
+
+ACTIVE_FEATURES = [feature for feature in Feature if FEATURE_TO_CRITERIA_TYPE[feature] != CriteriaType.NONE]

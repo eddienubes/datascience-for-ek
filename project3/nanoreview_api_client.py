@@ -119,6 +119,10 @@ class NanoReviewApiClient:
         }
 
     async def search(self, term: str):
+        """
+        Searches laptops by name.
+        :return: the most relevant result
+        """
         params = {
             'q': term,
             'limit': 500,
@@ -126,4 +130,4 @@ class NanoReviewApiClient:
         }
 
         res = await self.session.get('/api/search', params=params, verify_ssl=self.verify_ssl)
-        return await res.json()
+        return (await res.json())[0]['name']
