@@ -1,6 +1,7 @@
 import aiohttp
 import asyncio
 from scrapy.selector import Selector
+from quantulum3 import parser
 
 
 class NanoReviewApiClient:
@@ -68,6 +69,33 @@ class NanoReviewApiClient:
             "Score')]/following-sibling::div[contains(@class, 'score-bar-result')]/span[contains(@class, "
             "'score-bar-result-square-dark')]/text()").get()
 
+        weight_raw = selector.xpath(
+            "//table[@class='specs-table']//tr[td[contains(@class, 'cell-h') and normalize-space("
+            ")='Weight']]/td[@class='cell-s']/text()").get()
+
+        screen_to_body_ratio_raw = selector.xpath("//table[@class='specs-table']//tr[td[contains(@class, 'cell-h') and "
+                                                  "normalize-space()='Screen-to-body ratio']]/td["
+                                                  "@class='cell-s']/text()").get()
+
+        refresh_rate_raw = selector.xpath(
+            "//table[@class='specs-table']//tr[td[@class='cell-h' and normalize-space()='Refresh rate']]/td["
+            "@class='cell-s']/text()").get()
+
+        ppi_raw = selector.xpath(
+            "//table[@class='specs-table']//tr[td[@class='cell-h' and normalize-space()='PPI']]/td["
+            "@class='cell-s']/text()").get()
+
+        max_brightness_raw = selector.xpath(
+            "//div[contains(@class, 'score-bar-name') and contains(text(), "
+            "'Max. brightness')]/following-sibling::div[contains(@class, 'score-bar-result')]/span["
+            "@class='score-bar-result-number']/text()").get()
+
+        weight = parser.parse(weight_raw).pop(0).value
+        screen_to_body_ratio = parser.parse(screen_to_body_ratio_raw).pop(0).value
+        refresh_rate = parser.parse(refresh_rate_raw).pop(0).value
+        ppi = parser.parse(ppi_raw).pop(0).value
+        max_brightness_raw = parser.parse(max_brightness_raw).pop(0).value
+
         return {
             'performance': int(performance),
             'gaming': int(gaming),
@@ -75,7 +103,12 @@ class NanoReviewApiClient:
             'battery_life': int(battery_life),
             'connectivity': int(connectivity),
             'portability': int(portability),
-            'nano_score': int(nano_score)
+            'nano_score': int(nano_score),
+            'weight': float(weight),
+            'screen_to_body_ratio': float(screen_to_body_ratio),
+            'refresh_rate': int(refresh_rate),
+            'ppi': int(ppi),
+            'max_brightness': int(max_brightness_raw)
         }
 
     async def search(self, term: str):
