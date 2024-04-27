@@ -5,6 +5,7 @@ from quantulum3 import parser
 from catchable import catchable
 from nanoreview_api_client_exception import NanoReviewApiClientException
 from constants import Feature
+from nanoreview_info import NanoReviewInfo
 
 
 @catchable(NanoReviewApiClientException)
@@ -33,7 +34,7 @@ class NanoReviewApiClient:
         res = await self.session.post('/api/search/url', data=form_data, verify_ssl=self.verify_ssl)
         return (await res.json())['url']
 
-    async def get_info(self, laptop: str):
+    async def get_info(self, laptop: str) -> NanoReviewInfo:
         """
         Gets nanoreview characteristics information.
         All values are out of 100.
@@ -102,21 +103,21 @@ class NanoReviewApiClient:
 
         name = selector.xpath("//div[contains(@class, 'card-head')]//h1[@class='title-h1']/text()").get()
 
-        return {
-            Feature.NAME: name,
-            Feature.PERFORMANCE: int(performance),
-            Feature.GAMING: int(gaming),
-            Feature.DISPLAY: int(display),
-            Feature.BATTERY_LIFE: int(battery_life),
-            Feature.CONNECTIVITY: int(connectivity),
-            Feature.PORTABILITY: int(portability),
-            Feature.NANO_SCORE: int(nano_score),
-            Feature.WEIGHT: float(weight),
-            Feature.SCREEN_TO_BODY_RATIO: float(screen_to_body_ratio),
-            Feature.REFRESH_RATE: int(refresh_rate),
-            Feature.PPI: int(ppi),
-            Feature.MAX_BRIGHTNESS: int(max_brightness)
-        }
+        return NanoReviewInfo(
+            name=name,
+            performance=int(performance),
+            gaming=int(gaming),
+            display=int(display),
+            battery=int(battery_life),
+            connectivity=int(connectivity),
+            portability=int(portability),
+            nano_score=int(nano_score),
+            weight=float(weight),
+            screen_to_body_ratio=int(screen_to_body_ratio),
+            refresh_rate=int(refresh_rate),
+            ppi=int(ppi),
+            max_brightness=int(max_brightness)
+        )
 
     async def search(self, term: str):
         """

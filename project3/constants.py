@@ -1,13 +1,13 @@
 from enum import Enum
 
 
-class CriteriaType(Enum):
+class CriteriaType(str, Enum):
     MAX = "MAX"
     MIN = "MIN"
     NONE = "NONE"
 
 
-class Feature(Enum):
+class Feature(str, Enum):
     """
     Preserve the order of keys here.
     """

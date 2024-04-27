@@ -1,6 +1,6 @@
 import functools
 import asyncio
-from typing import Callable
+from typing import Callable, Any
 
 
 def catchable(exception_cls: type(BaseException)):
@@ -13,7 +13,7 @@ def catchable(exception_cls: type(BaseException)):
     return impl
 
 
-def catchable_method(method: Callable, exception_cls: type(BaseException)):
+def catchable_method(method: Callable[[Any], Any], exception_cls: type(BaseException)):
     if asyncio.iscoroutinefunction(method):
         @functools.wraps(method)
         async def wrapper(*args, **kwargs):

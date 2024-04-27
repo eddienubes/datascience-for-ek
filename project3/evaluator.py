@@ -1,6 +1,7 @@
 import numpy as np
 
 from constants import Feature, FEATURE_TO_CRITERIA_TYPE, CriteriaType, ACTIVE_FEATURES
+from nanoreview_info import NanoReviewInfo
 
 
 class Evaluator:
@@ -14,12 +15,13 @@ class Evaluator:
         self.__meta_inverted = dict()
         self.__exhausted = False
 
-    def add(self, features: dict) -> None:
+    def add(self, info: NanoReviewInfo) -> None:
         """
         Add a feature vector to the evaluator
 
-        :param features: info from nano review api
+        :param info: info from nano review api
         """
+        features = info.to_features()
         feature_vector = list()
 
         for feature in ACTIVE_FEATURES:
