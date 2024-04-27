@@ -1,7 +1,7 @@
 import asyncio
 
 from nanoreview_api_client import NanoReviewApiClient
-from project3.evaluator import Evaluator
+from evaluator import Evaluator
 
 
 async def main() -> None:

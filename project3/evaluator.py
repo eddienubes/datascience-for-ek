@@ -1,6 +1,6 @@
 import numpy as np
 
-from project3.constants import Feature, FEATURE_TO_CRITERIA_TYPE, CriteriaType, ACTIVE_FEATURES
+from constants import Feature, FEATURE_TO_CRITERIA_TYPE, CriteriaType, ACTIVE_FEATURES
 
 
 class Evaluator:
