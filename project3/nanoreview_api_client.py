@@ -21,8 +21,8 @@ class NanoReviewApiClient:
                 loop.create_task(self.session.close())
             else:
                 loop.run_until_complete(self.session.close())
-        except Exception:
-            pass
+        except Exception as e:
+            raise e
 
     async def get_redirect_url(self, laptop: str):
         form_data = aiohttp.FormData()
