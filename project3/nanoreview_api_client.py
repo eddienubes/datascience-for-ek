@@ -98,9 +98,12 @@ class NanoReviewApiClient:
         screen_to_body_ratio = parser.parse(screen_to_body_ratio_raw).pop(0).value
         refresh_rate = parser.parse(refresh_rate_raw).pop(0).value
         ppi = parser.parse(ppi_raw).pop(0).value
-        max_brightness_raw = parser.parse(max_brightness_raw).pop(0).value
+        max_brightness = parser.parse(max_brightness_raw).pop(0).value
+
+        name = selector.xpath("//div[contains(@class, 'card-head')]//h1[@class='title-h1']/text()").get()
 
         return {
+            Feature.NAME: name,
             Feature.PERFORMANCE: int(performance),
             Feature.GAMING: int(gaming),
             Feature.DISPLAY: int(display),
@@ -112,7 +115,7 @@ class NanoReviewApiClient:
             Feature.SCREEN_TO_BODY_RATIO: float(screen_to_body_ratio),
             Feature.REFRESH_RATE: int(refresh_rate),
             Feature.PPI: int(ppi),
-            Feature.MAX_BRIGHTNESS: int(max_brightness_raw)
+            Feature.MAX_BRIGHTNESS: int(max_brightness)
         }
 
     async def search(self, term: str):

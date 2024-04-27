@@ -4,9 +4,11 @@ from enum import Enum
 class CriteriaType(Enum):
     MAX = "MAX"
     MIN = "MIN"
+    NONE = "NONE"
 
 
 class Feature(Enum):
+    NAME = "NAME"
     PERFORMANCE = "PERFORMANCE"
     GAMING = "GAMING"
     DISPLAY = "DISPLAY"
