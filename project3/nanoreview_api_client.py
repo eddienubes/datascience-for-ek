@@ -2,9 +2,10 @@ import aiohttp
 import asyncio
 from scrapy.selector import Selector
 from quantulum3 import parser
+
 from common import catchable
-from nanoreview_api_client_exception import NanoReviewApiClientException
 from nanoreview_info import NanoReviewInfo
+from nanoreview_api_client_exception import NanoReviewApiClientException
 
 
 @catchable(NanoReviewApiClientException)
