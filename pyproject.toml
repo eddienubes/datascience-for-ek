@@ -18,6 +18,9 @@ jupyter = "^1.0.0"
 python-dateutil = "^2.9.0.post0"
 matplotlib = "^3.8.4"
 seaborn = "^0.13.2"
+statsmodels = "^0.14.2"
+scikit-learn = "^1.4.2"
+statsforecast = "^1.7.4"
 
 
 [build-system]
