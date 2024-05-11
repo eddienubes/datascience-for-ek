@@ -9,7 +9,7 @@ async def main() -> None:
 
     snp_500 = api.get_history('^GSPC')
     vix = api.get_history('^VIX')
-    us_treasury_bonds = api.get_history('^VIX')
+    us_treasury_bonds = api.get_history('^TYX')
 
     snp_path = os.path.join(os.getcwd(), 'project1', 'assets', 's&p500_max.csv')
     vix_path = os.path.join(os.getcwd(), 'project1', 'assets', 'vix_max.csv')
