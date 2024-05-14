@@ -7,3 +7,7 @@ start-p1-scrape:
 
 start-p3:
 	PYTHONPATH=./ poetry run python3 ./project3/main.py
+
+start-p3-cp-sat:
+	PYTHONPATH=./ poetry run python3 ./project3/cpsat.py
+	
