@@ -11,7 +11,9 @@ class Evaluator:
         """
         self.__feature_matrix = np.empty((0, len(ACTIVE_FEATURES)))
         # Metadata for each model
+        # Name - index
         self.__meta = dict()
+        # Index - Name
         self.__meta_inverted = dict()
 
     def add(self, info: NanoReviewInfo) -> None:
@@ -78,9 +80,12 @@ class Evaluator:
 
         percentage = diff / row_sums[sorted_indices[-1]]
 
+        scores = [{'name': self.__meta_inverted[idx], 'score': row_sums[idx]} for idx in sorted_indices]
+
         return {
             'best': best,
             'worst': worst,
             'diff': diff,
-            'percentage': percentage
+            'percentage': percentage,
+            'scores': scores
         }

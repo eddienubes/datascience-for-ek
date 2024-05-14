@@ -21,6 +21,8 @@ seaborn = "^0.13.2"
 statsmodels = "^0.14.2"
 scikit-learn = "^1.4.2"
 statsforecast = "^1.7.4"
+ortools = "^9.10.4067"
+termcolor = "^2.4.0"
 
 
 [build-system]
