@@ -13,7 +13,6 @@ class Evaluator:
         # Metadata for each model
         self.__meta = dict()
         self.__meta_inverted = dict()
-        self.__exhausted = False
 
     def add(self, info: NanoReviewInfo) -> None:
         """
@@ -52,9 +51,6 @@ class Evaluator:
     def run(self):
         if not len(self.__feature_matrix):
             raise ValueError('There is nothing to evaluate')
-
-        if self.__exhausted:
-            raise ValueError('Evaluator is exhausted, please create new instance')
 
         self.__feature_matrix = self.normalize(self.__feature_matrix)
 
