@@ -3008,6 +3008,25 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pyod"
+version = "1.1.3"
+description = "A Comprehensive and Scalable Python Library for Outlier Detection (Anomaly Detection)"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pyod-1.1.3.tar.gz", hash = "sha256:ae39808c8da04ce47eee3757ef641feb67e610bddb134b3362fd6f5cb2c6c7cd"},
+]
+
+[package.dependencies]
+joblib = "*"
+matplotlib = "*"
+numba = ">=0.51"
+numpy = ">=1.19"
+scikit_learn = ">=0.22.0"
+scipy = ">=1.5.1"
+six = "*"
+
+[[package]]
 name = "pyopenssl"
 version = "24.1.0"
 description = "Python wrapper module around the OpenSSL library"
@@ -4492,4 +4511,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "01a6baede74702fdfac7d33bdefc0061e22c63aaef50adf8c41b7aa324e362f2"
+content-hash = "dbd7ab68673e4c1231f3e5c78e305305d2e8b7f4c3937be57c1a635aa0c8b505"
