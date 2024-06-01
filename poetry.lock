@@ -863,6 +863,21 @@ testing = ["covdefaults (>=2.3)", "coverage (>=7.3.2)", "diff-cover (>=8.0.1)", 
 typing = ["typing-extensions (>=4.8)"]
 
 [[package]]
+name = "filterpy"
+version = "1.4.5"
+description = "Kalman filtering and optimal estimation library"
+optional = false
+python-versions = "*"
+files = [
+    {file = "filterpy-1.4.5.zip", hash = "sha256:4f2a4d39e4ea601b9ab42b2db08b5918a9538c168cff1c6895ae26646f3d73b1"},
+]
+
+[package.dependencies]
+matplotlib = "*"
+numpy = "*"
+scipy = "*"
+
+[[package]]
 name = "fonttools"
 version = "4.51.0"
 description = "Tools to manipulate font files"
@@ -3008,6 +3023,26 @@ files = [
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pykalman"
+version = "0.9.7"
+description = "An implementation of the Kalman Filter, Kalman Smoother, and EM algorithm in Python"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "pykalman-0.9.7-py2.py3-none-any.whl", hash = "sha256:fc80ab0832ded593c9f23a634f7208c4a3775478bc12108d6f8587912212d219"},
+    {file = "pykalman-0.9.7.tar.gz", hash = "sha256:135779200393c6b370221990f7316740472f541346e9211d11630e2c2d8fb8a0"},
+]
+
+[package.dependencies]
+numpy = "*"
+scipy = "*"
+
+[package.extras]
+all = ["Sphinx", "numpydoc", "pytest", "twine"]
+docs = ["Sphinx", "numpydoc"]
+tests = ["pytest"]
+
+[[package]]
 name = "pyod"
 version = "1.1.3"
 description = "A Comprehensive and Scalable Python Library for Outlier Detection (Anomaly Detection)"
@@ -4511,4 +4546,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "dbd7ab68673e4c1231f3e5c78e305305d2e8b7f4c3937be57c1a635aa0c8b505"
+content-hash = "ca92d7e40c50167c92cb0f23d07e1fb3660d057aaa65b6d2ab6a264548fec228"
