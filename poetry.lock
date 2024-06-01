@@ -1132,6 +1132,20 @@ files = [
 ]
 
 [[package]]
+name = "hdrezkaapi"
+version = "7.1.0"
+description = ""
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "HdRezkaApi-7.1.0-py3-none-any.whl", hash = "sha256:634aac11c14f36f1ca6c0fa2739e4dad189f3763a8496cdac4e9b11d2579b708"},
+    {file = "HdRezkaApi-7.1.0.tar.gz", hash = "sha256:a02457144b19a66894e481bcd5fbd5bd621c4d872648c3d708328e3febb63eb9"},
+]
+
+[package.dependencies]
+beautifulsoup4 = "*"
+
+[[package]]
 name = "httpcore"
 version = "1.0.5"
 description = "A minimal low-level HTTP client."
@@ -4546,4 +4560,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "ca92d7e40c50167c92cb0f23d07e1fb3660d057aaa65b6d2ab6a264548fec228"
+content-hash = "ca608dfe4ea80995e34ae8f286cbbb58d3d50c1faead0865182dcf434f26c903"
