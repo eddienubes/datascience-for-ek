@@ -27,14 +27,14 @@ async def main():
         async for chunk in client.get_mp4_stream(url):
             await ffmpeg.write(chunk)
 
-    # Load the audio file
     print('analysing audio')
     audio = AudioSegment.from_file(SOURCE_FILENAME, format='wav')
 
     # Split audio where silence is 1000ms or more and get chunks
     chunks = split_on_silence(audio,
                               min_silence_len=1000,
-                              silence_thresh=-40)
+                              silence_thresh=-45,
+                              keep_silence=150)
 
     # Concatenate chunks
     concatenated_audio = AudioSegment.empty()
@@ -45,8 +45,6 @@ async def main():
     # Export concatenated audio to a file
     concatenated_audio.export("output_audio.wav", format="wav")
 
-    # vosk_model = VoskModel(FfmpegClient.SAMPLE_RATE)
-    # 
     # # For simplicity let's just read from the file
     # async def write() -> None:
     #     async for chunk in mp4_stream:
