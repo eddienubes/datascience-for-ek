@@ -1,16 +1,22 @@
 import asyncio
-
-import aiofiles
 import aiofiles.os as aioos
+import json
 
+from project4.audio_editor import AudioEditor
 from project4.ffmpeg_client import FfmpegClient
 from project4.rezka_api_client import MediaApiClient
-from project4.vosk_model import VoskModel
-from pydub import AudioSegment
-from pydub.silence import split_on_silence
+from wordcloud import WordCloud, ImageColorGenerator
+from PIL import Image, ImageEnhance
+from scipy.ndimage import gaussian_gradient_magnitude
+import matplotlib.pyplot as plt
+import numpy as np
 
-SOURCE_FILENAME = 'audio1.wav'
-CLEAN_FILENAME = 'clean.wav'
+from project4.whisperx_model import WhisperXModel
+
+SOURCE_FILENAME = 'source.wav'
+NO_SILENCE_FILENAME = 'no_silence.wav'
+TRANSCRIPTION_FILENAME = 'transcription.json'
+IMAGE_SOURCE = 'walter.png'
 
 
 async def main():
@@ -27,36 +33,56 @@ async def main():
         async for chunk in client.get_mp4_stream(url):
             await ffmpeg.write(chunk)
 
-    print('analysing audio')
-    audio = AudioSegment.from_file(SOURCE_FILENAME, format='wav')
+    if not await aioos.path.exists(NO_SILENCE_FILENAME):
+        audio_editor = AudioEditor(SOURCE_FILENAME)
+        audio_editor.remove_silence(NO_SILENCE_FILENAME)
 
-    # Split audio where silence is 1000ms or more and get chunks
-    chunks = split_on_silence(audio,
-                              min_silence_len=1000,
-                              silence_thresh=-45,
-                              keep_silence=150)
+    if not await aioos.path.exists(TRANSCRIPTION_FILENAME):
+        transcription = WhisperXModel().transcribe(NO_SILENCE_FILENAME)
+        with open(TRANSCRIPTION_FILENAME, "w") as f:
+            json.dump(transcription, f, indent=4)
 
-    # Concatenate chunks
-    concatenated_audio = AudioSegment.empty()
+    with open(TRANSCRIPTION_FILENAME, "r") as json_file:
+        transcription = json.load(json_file)['segments']
 
-    for chunk in chunks:
-        concatenated_audio += chunk
+    text = ' '.join([item['text'].strip() for item in transcription])
 
-    # Export concatenated audio to a file
-    concatenated_audio.export("output_audio.wav", format="wav")
+    walter_image = Image.open(IMAGE_SOURCE)
+    enhancer = ImageEnhance.Color(walter_image)
+    walter_color = enhancer.enhance(1.5)  # Increase color saturation
 
-    # # For simplicity let's just read from the file
-    # async def write() -> None:
-    #     async for chunk in mp4_stream:
-    #         await ffmpeg.write(chunk)
-    # 
-    # async def read():
-    #     async for wav_chunk in ffmpeg.get_stream():
-    #         result = vosk_model.transcribe(wav_chunk, partial=False)
-    #         if result:
-    #             print(result)
+    enhancer = ImageEnhance.Brightness(walter_color)
+    walter_color = enhancer.enhance(1.2)  # Increase brightness
 
-    # await asyncio.gather(read())
+    walter_color = np.array(walter_color)
+
+    walter_mask = walter_color.copy()
+    walter_mask[walter_mask.sum(axis=2) == 0] = 255
+
+    edges = np.mean([gaussian_gradient_magnitude(walter_color[:, :, i] / 255., 2) for i in range(3)], axis=0)
+    walter_mask[edges > .06] = 255
+
+    wc = WordCloud(max_words=2000, mask=walter_mask, max_font_size=40, random_state=42, relative_scaling=0)
+
+    # generate word cloud
+    wc.generate(text)
+    plt.imshow(wc)
+
+    # create coloring from image
+    image_colors = ImageColorGenerator(walter_color)
+    wc.recolor(color_func=image_colors)
+    plt.figure(figsize=(10, 10))
+    plt.imshow(wc, interpolation="bilinear")
+    wc.to_file("walter_wordcloud.png")
+
+    # plt.figure(figsize=(10, 10))
+    # plt.title("Original Image")
+    # plt.imshow(walter_color)
+
+    plt.figure(figsize=(10, 10))
+    plt.title("Edge map")
+    plt.imshow(edges)
+    plt.show()
 
 
 asyncio.run(main())
